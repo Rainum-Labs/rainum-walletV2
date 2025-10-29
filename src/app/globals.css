@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --background: #040510;
+  --background-muted: #070a1b;
+  --foreground: #f7fbff;
+  --accent: #4cc9f0;
+  --accent-secondary: #a855f7;
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --shadow-soft: 0 30px 120px rgba(27, 35, 89, 0.4);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-rainum-aqua: #42f4ff;
+  --color-rainum-violet: #9c3dff;
+  --color-rainum-amber: #facc15;
+  --color-rainum-rose: #ff4d9a;
+  --color-surface: rgba(12, 17, 34, 0.72);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+}
+
+.bg-grid {
+  background-image: radial-gradient(
+      rgba(76, 201, 240, 0.18) 1px,
+      transparent 0
+    ),
+    radial-gradient(rgba(168, 85, 247, 0.18) 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position:
+    0 0,
+    20px 20px;
+}
+
+.glass-panel {
+  background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.02)
+    )
+    border-box;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(24px);
+}
+
+.gradient-ring {
+  position: relative;
+  padding: 1px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    135deg,
+    rgba(76, 201, 240, 0.9),
+    rgba(168, 85, 247, 0.75),
+    rgba(255, 77, 154, 0.6)
+  );
+}
+
+.gradient-ring > * {
+  border-radius: inherit;
+  background: rgba(6, 11, 29, 0.92);
+}
+
+.shadow-neon {
+  box-shadow:
+    0 0 35px rgba(76, 201, 240, 0.35),
+    0 0 65px rgba(168, 85, 247, 0.25);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #42f4ff 0%, #9c3dff 50%, #ff4d9a 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
