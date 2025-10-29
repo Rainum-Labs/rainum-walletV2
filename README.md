@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Rainum Wallet V2
 
-## Getting Started
+Investor-klart dashboard for Rainum blockchain med dual-VM visualisering, cross-chain bridge kontrol og enterprise-grade sikkerhedslag.
 
-First, run the development server:
+### ✨ Nuværende funktionalitet
+
+- **Marketing landing page** med hero, teknologi-highlights, sikkerhedssektion og investor call-to-actions.
+- **Loginoplevelse** der beskriver Rainums zero-trust model (passphrase, WebAuthn, hardware wallet).
+- **Authenticated dashboard shell** (`/dashboard`) med:
+  - Porteføljeoversigt, fee/QoS indsigter og ZKP-statistik.
+  - Netværkssundhed (TPS, finalitet, peers).
+  - Bridge pipeline (timelocks, attestationer).
+  - Governance radar + security alerts.
+  - Seneste transaktioner (EVM/Move, privacy levels).
+- Designtokens + glassmorphic UI med Tailwind v4, mørkt tema og animations-klare komponenter.
+
+Alle data er pt. baseret på `src/data/demo-dashboard.ts` og kan erstattes med faktiske API-kald senere.
+
+---
+
+## Teknologistak
+
+- **Frontend**: Next.js 14 (App Router, server components), TypeScript, React 19.
+- **Styling**: Tailwind CSS v4 (new `@import "tailwindcss"` pipeline), custom utility helpers (`cn`, glass panels).
+- **State / Data**: Placeholder-demo data + abstraheret Rainum klient (`src/lib/api/**`), websocket helper.
+- **Designsystem**: Reusable `Button`, `Card`, `Badge`, layout og dashboard komponenter.
+- **Sikkerhed**: Stramme `next.config.ts` security headers (CSP, HSTS, Permissions-Policy).
+
+---
+
+## Kom i gang
 
 ```bash
+# installer afhængigheder
+npm install
+
+# kør udviklingsserver
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Applikationen kører på [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Har du brug for at teste den autentificerede oplevelse direkte, gå til [`/dashboard`](http://localhost:3000/dashboard) eller login flowet på [`/login`](http://localhost:3000/login).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Miljøvariabler (optionelle)
 
-To learn more about Next.js, take a look at the following resources:
+Følgende variabler bruges af `RainumClient` og websocket helperen. Alle er valgfrie i den nuværende demo-tilstand.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Formål |
+| --- | --- |
+| `NEXT_PUBLIC_RAINUM_REST_ENDPOINT` | REST endpoint til Rainum blockchain API |
+| `NEXT_PUBLIC_RAINUM_RPC_ENDPOINT` | RPC endpoint for direkte knudeopkald |
+| `NEXT_PUBLIC_RAINUM_WS_ENDPOINT` | Websocket stream til realtidsopdateringer |
+| `NEXT_PUBLIC_RAINUM_API_KEY` | API-nøgle til secured endpoints (injekteres i headers) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Projektstruktur
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+  app/
+    (public)     → marketing sider
+    (auth)       → login / onboarding
+    (app)        → authenticated dashboard shell
+  components/
+    layout/      → header, footer, shell, theme provider
+    sections/    → hero, metrics, security, capabilities osv.
+    dashboard/   → modulære widgets til appen
+    ui/          → genbrugelige UI primitives
+  data/          → demo datasæt
+  lib/
+    api/         → klient wrapper + typed models
+    hooks/       → realtime hooks
+    utils/       → helper utilities
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Scripts
+
+| Script | Beskrivelse |
+| --- | --- |
+| `npm run dev` | Kører udviklingsserveren |
+| `npm run build` | Production build |
+| `npm run start` | Starter buildet projekt |
+| `npm run lint` | ESLint (Next.js config) |
+
+---
+
+## Næste skridt
+
+- Erstat demo-data med faktiske Rainum endpoints og websocket streams.
+- Implementer sessionhåndtering + JWT-rotation i `/login`.
+- Udbyg flere dashboard-routes (bridge, staking, governance osv.).
+- Tilføj Storybook / visuel regression samt Playwright e2e scenarier.
+
+Spørg endelig, hvis noget skal prioriteres først. 🚀
